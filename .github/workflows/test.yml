@@ -1,0 +1,25 @@
+on: [push]
+
+name: Azure/CLI - the actual repo
+
+jobs:
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.Azure_cred_login_obj }}
+
+       - name: Checkout                                                                    
+      uses: actions/checkout@v1                                                           
+
+
+    - name: Azure cli
+      uses: azure/CLI@v0-beta
+      with:
+        azcliversion: 2.0.68
+        inlineScript: |
+chmod +x $GITHUB_WORKSPACE/sampleScript.sh
+$GITHUB_WORKSPACE/sampleScript.sh arguments
